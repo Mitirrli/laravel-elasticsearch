@@ -22,6 +22,25 @@
   "tagline" : "You Know, for Search"
 }
 ```
-## 
+
+## composer安装elasticsearch扩展
+1. `composer remove laravel/scout:^7.0`
+2. `php artisan vendor:publish`
+3. `composer require tamayo/laravel-scout-elastic:^5.0`
+4. 修改scout的驱动为elasticsearch
+5. 添加es的配置
+```
+'elasticsearch' => [
+    'index' => env('ELASTICSEARCH_INDEX', ''),
+    'hosts' => [
+        env('ELASTICSEARCH_HOST', ''),
+    ],
+],
+```
+6. 增加.env
+```
+ELASTICSEARCH_INDEX=
+ELASTICSEARCH_HOST=
+```
 
 ## 
