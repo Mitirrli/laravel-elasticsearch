@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  mi-es:
+    image: "elasticsearch:7.8.0"
+    ports:
+      - "9269:9200"
+      - "9369:9300"
+volumes:
+  mi-elasticsearch:
