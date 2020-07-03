@@ -76,3 +76,6 @@ public function toSearchableArray()
 
 3 . 查询es`curl 'http://localhost:9269/demo/_search'`(demo是定义的Index)
 
+4 . 导入数据 `php artisan scout:import "App\Models\News"`
+## 安装kibana
+`docker-compose增加安装kibana脚本`
