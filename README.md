@@ -50,6 +50,105 @@ ELASTICSEARCH_INDEX=
 ELASTICSEARCH_HOST=
 ```
 
+## 下载ik压缩包
+1 . 创建索引 `curl -X PUT http://localhost:9269/index`
+
+2 .
+```
+curl -X POST http://localhost:9269/index/_mapping -H 'Content-Type:application/json' -d'
+{
+        "properties": {
+            "content": {
+                "type": "text",
+                "analyzer": "ik_max_word",
+                "search_analyzer": "ik_smart"
+            }
+        }
+}'
+```
+
+3 . `curl -X POST http://localhost:9269/index/_create/1 -H 'Content-Type:application/json' -d'
+     {"content":"美国留给伊拉克的是个烂摊子吗"}
+     '`
+     
+4 . `curl -X POST http://localhost:9269/index/_create/2 -H 'Content-Type:application/json' -d'
+     {"content":"公安部：各地校车将享最高路权"}
+     '`
+     
+5 . `curl -X POST http://localhost:9269/index/_create/3 -H 'Content-Type:application/json' -d'
+     {"content":"中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"}
+     '`
+     
+6 . `curl -XPOST http://localhost:9269/index/_create/4 -H 'Content-Type:application/json' -d'
+     {"content":"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"}
+     '`
+     
+7 . 高亮查询
+```
+curl -X POST http://localhost:9269/index/_search  -H 'Content-Type:application/json' -d'
+{
+    "query" : { "match" : { "content" : "中国" }},
+    "highlight" : {
+        "pre_tags" : ["<tag1>", "<tag2>"],
+        "post_tags" : ["</tag1>", "</tag2>"],
+        "fields" : {
+            "content" : {}
+        }
+    }
+}
+'
+```
+```
+结果:
+{
+    "took": 866,
+    "timed_out": false,
+    "_shards": {
+        "total": 1,
+        "successful": 1,
+        "skipped": 0,
+        "failed": 0
+    },
+    "hits": {
+        "total": {
+            "value": 2,
+            "relation": "eq"
+        },
+        "max_score": 0.642793,
+        "hits": [
+            {
+                "_index": "index",
+                "_type": "_doc",
+                "_id": "3",
+                "_score": 0.642793,
+                "_source": {
+                    "content": "中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"
+                },
+                "highlight": {
+                    "content": [
+                        "中韩渔警冲突调查：韩警平均每天扣1艘<tag1>中国</tag1>渔船"
+                    ]
+                }
+            },
+            {
+                "_index": "index",
+                "_type": "_doc",
+                "_id": "4",
+                "_score": 0.642793,
+                "_source": {
+                    "content": "中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"
+                },
+                "highlight": {
+                    "content": [
+                        "<tag1>中国</tag1>驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"
+                    ]
+                }
+            }
+        ]
+    }
+}
+```
+
 ## 设置model
 1 . 设定model
 ```
@@ -80,6 +179,7 @@ public function toSearchableArray()
 
 ## 安装kibana
 1 . `docker-compose增加安装kibana脚本`
+
 2 . 接下来就可以通过0.0.0.0:5661访问kibana了
 
 ## es库数据操作
