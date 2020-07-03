@@ -1,3 +1,5 @@
+# 简单步骤
+
 ## 首先用docker安装一个测试用的单节点elasticsearch
 
 1 . 在根目录执行docker-compose up -d
@@ -76,6 +78,11 @@ public function toSearchableArray()
 
 3 . 查询es`curl 'http://localhost:9269/demo/_search'`(demo是定义的Index)
 
-4 . 导入数据 `php artisan scout:import "App\Models\News"`
 ## 安装kibana
-`docker-compose增加安装kibana脚本`
+1 . `docker-compose增加安装kibana脚本`
+2 . 接下来就可以通过0.0.0.0:5661访问kibana了
+
+## es库数据操作
+1 . 清空数据`php artisan scout:flush "App\Models\News"`
+
+2 . 导入数据`php artisan scout:import "App\Models\News"`
