@@ -5,8 +5,30 @@ namespace App\Models;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class User extends Model
 {
-	use HasDateTimeFormatter;    
+	use HasDateTimeFormatter;
+
+    use Searchable;
+
+    protected $guarded = [];
+
+    public function searchableAs()
+    {
+        return '_doc';
+    }
+
+    // 定义有那些字段需要搜索
+    public function toSearchableArray()
+    {
+        return [
+            'users_id' => $this->id,
+            'users_name' => $this->name,
+            'users_introduction' => $this->introduction,
+            'users_created_at' => $this->created_at,
+            'users_updated_at' => $this->updated_at,
+        ];
+    }
 }
