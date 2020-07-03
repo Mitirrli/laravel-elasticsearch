@@ -86,3 +86,8 @@ public function toSearchableArray()
 1 . 清空数据`php artisan scout:flush "App\Models\News"`
 
 2 . 导入数据`php artisan scout:import "App\Models\News"`
+
+## 增加命令行调试
+1 . `php artisan es:list [type] [query]`
+
+2 . type为类型,可选news、user ; query为待查询字段
