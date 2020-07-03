@@ -1,5 +1,5 @@
 version: '3.7'
-
+# 以下配置仅为测试使用,勿至生产环境使用
 services:
   mi-es:
     image: "elasticsearch:7.8.0"
@@ -11,8 +11,26 @@ services:
       memlock:
         soft: -1
         hard: -1
+    networks:
+      - mi-network
     ports:
       - "9269:9200"
       - "9369:9300"
+  mi-kibana:
+    image: "kibana:7.8.0"
+    ports:
+      - "5661:5601"
+    networks:
+      - mi-network
+    volumes:
+      - type: bind
+        source: ./kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    depends_on:
+      - mi-es
 volumes:
   mi-elasticsearch:
+
+networks:
+  mi-network:
