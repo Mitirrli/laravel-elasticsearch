@@ -17,6 +17,8 @@ services:
     ports:
       - "9269:9200"
       - "9369:9300"
+    volumes:
+      - "./docker/elasticsearch/plugins/ik:/usr/share/elasticsearch/plugins/ik"
   mi-kibana:
     image: "kibana:7.8.0"
     ports:
