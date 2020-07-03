@@ -53,7 +53,87 @@ ELASTICSEARCH_HOST=
 ## 下载ik压缩包
 1 . 创建索引 `curl -X PUT http://localhost:9269/index`
 
-2 .
+2 . 查看ik是否生效
+```
+curl -X GET http://localhost:9269/_analyze -H 'Content-Type:application/json' -d'
+{
+    "analyzer" : "ik_max_word",
+    "text" : "中华人民共和国"
+}
+'
+```
+```
+结果:
+{
+    "tokens": [
+        {
+            "token": "中华人民共和国",
+            "start_offset": 0,
+            "end_offset": 7,
+            "type": "CN_WORD",
+            "position": 0
+        },
+        {
+            "token": "中华人民",
+            "start_offset": 0,
+            "end_offset": 4,
+            "type": "CN_WORD",
+            "position": 1
+        },
+        {
+            "token": "中华",
+            "start_offset": 0,
+            "end_offset": 2,
+            "type": "CN_WORD",
+            "position": 2
+        },
+        {
+            "token": "华人",
+            "start_offset": 1,
+            "end_offset": 3,
+            "type": "CN_WORD",
+            "position": 3
+        },
+        {
+            "token": "人民共和国",
+            "start_offset": 2,
+            "end_offset": 7,
+            "type": "CN_WORD",
+            "position": 4
+        },
+        {
+            "token": "人民",
+            "start_offset": 2,
+            "end_offset": 4,
+            "type": "CN_WORD",
+            "position": 5
+        },
+        {
+            "token": "共和国",
+            "start_offset": 4,
+            "end_offset": 7,
+            "type": "CN_WORD",
+            "position": 6
+        },
+        {
+            "token": "共和",
+            "start_offset": 4,
+            "end_offset": 6,
+            "type": "CN_WORD",
+            "position": 7
+        },
+        {
+            "token": "国",
+            "start_offset": 6,
+            "end_offset": 7,
+            "type": "CN_CHAR",
+            "position": 8
+        }
+    ]
+}
+```
+
+3 .
 ```
 curl -X POST http://localhost:9269/index/_mapping -H 'Content-Type:application/json' -d'
 {
@@ -67,23 +147,23 @@ curl -X POST http://localhost:9269/index/_mapping -H 'Content-Type:application/j
 }'
 ```
 
-3 . `curl -X POST http://localhost:9269/index/_create/1 -H 'Content-Type:application/json' -d'
+4 . `curl -X POST http://localhost:9269/index/_create/1 -H 'Content-Type:application/json' -d'
      {"content":"美国留给伊拉克的是个烂摊子吗"}
      '`
      
-4 . `curl -X POST http://localhost:9269/index/_create/2 -H 'Content-Type:application/json' -d'
+5 . `curl -X POST http://localhost:9269/index/_create/2 -H 'Content-Type:application/json' -d'
      {"content":"公安部：各地校车将享最高路权"}
      '`
      
-5 . `curl -X POST http://localhost:9269/index/_create/3 -H 'Content-Type:application/json' -d'
+6 . `curl -X POST http://localhost:9269/index/_create/3 -H 'Content-Type:application/json' -d'
      {"content":"中韩渔警冲突调查：韩警平均每天扣1艘中国渔船"}
      '`
      
-6 . `curl -XPOST http://localhost:9269/index/_create/4 -H 'Content-Type:application/json' -d'
+7 . `curl -XPOST http://localhost:9269/index/_create/4 -H 'Content-Type:application/json' -d'
      {"content":"中国驻洛杉矶领事馆遭亚裔男子枪击 嫌犯已自首"}
      '`
      
-7 . 高亮查询
+8 . 高亮查询
 ```
 curl -X POST http://localhost:9269/index/_search  -H 'Content-Type:application/json' -d'
 {
