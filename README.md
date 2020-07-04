@@ -271,3 +271,8 @@ public function toSearchableArray()
 1 . `php artisan es:list [type] [query]`
 
 2 . type为类型,可选news、user ; query为待查询字段
+
+## 增加php7.4.7
+1 . 进入容器中`docker exec -it mi-php sh`
+
+2 . 开启服务`php -S 0.0.0.0:80`
