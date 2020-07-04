@@ -2,6 +2,15 @@ version: '3.7'
 # 以下配置仅为测试使用,勿至生产环境使用
 
 services:
+  mi-php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    tty: true
+    ports:
+      - "86:80"
+    volumes:
+      - ".:/opt/www"
   mi-es:
     image: "elasticsearch:7.8.0"
     environment:
