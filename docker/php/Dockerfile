@@ -66,4 +66,6 @@ RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/com
     && echo "swoole.use_shortname = 'Off'" >> /usr/local/etc/php/conf.d/swoole.ini
 
 # 设置工作目录
-WORKDIR /opt/www/public
+WORKDIR /opt/www
+
+ENTRYPOINT ["php", "bin/laravels", "start"]
