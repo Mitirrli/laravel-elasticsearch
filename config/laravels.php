@@ -46,6 +46,7 @@ return [
     'swoole_tables'            => [],
     'register_providers'       => [],
     'cleaners'                 => [
+//        \Hhxsv5\LaravelS\Illuminate\Cleaners\LaravelAdminCleaner::class
         // See LaravelS's built-in cleaners: https://github.com/hhxsv5/laravel-s/blob/master/Settings.md#cleaners
     ],
     'destroy_controllers'      => [
