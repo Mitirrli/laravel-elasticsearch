@@ -3,6 +3,7 @@ version: '3.7'
 
 services:
   mi-php:
+    container_name: mi-php
     build:
       context: .
       dockerfile: docker/php/Dockerfile
