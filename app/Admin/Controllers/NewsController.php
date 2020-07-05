@@ -23,10 +23,10 @@ class NewsController extends AdminController
             $grid->text;
             $grid->created_at;
             $grid->updated_at->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -60,7 +60,7 @@ class NewsController extends AdminController
             $form->display('id');
             $form->text('title');
             $form->text('text');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });
