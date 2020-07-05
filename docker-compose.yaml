@@ -27,6 +27,8 @@ services:
       - "86:80"
     volumes:
       - "./:/opt/www"
+    depends_on:
+      - mi-es
   mi-es:
     image: "elasticsearch:7.8.0"
     environment:
