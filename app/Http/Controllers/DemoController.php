@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TestRequest;
 use Collective\Annotations\Routing\Annotations\Annotations\Get;
-use Illuminate\Http\Request;
 
 class DemoController extends Controller
 {
     /**
      * @Get("/")
+     * @param TestRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(TestRequest $request)
     {
-        return response()->json([
-            'name' => 'Abigail',
-            'state' => 'CA'
-        ]);
+        $params = $request->validated();
+
+        return response()->json($params);
     }
 }
