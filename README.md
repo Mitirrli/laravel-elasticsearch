@@ -276,3 +276,6 @@ public function toSearchableArray()
 1 . 进入容器中`docker exec -it mi-php sh`
 
 2 . 开启服务`php -S 0.0.0.0:80`
+
+## 安装laravels
+1 . 参考[github](https://github.com/hhxsv5/laravel-s)
