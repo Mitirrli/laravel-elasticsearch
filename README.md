@@ -279,3 +279,19 @@ public function toSearchableArray()
 
 ## 安装laravels
 1 . 参考[github](https://github.com/hhxsv5/laravel-s)
+
+## 安装laravelcollective/annotations注解
+1 . `composer require plaravelcollective/annotations`
+
+2 . 参考[github](https://github.com/LaravelCollective/annotations)
+
+3 . 
+```
+Scanning your event handlers, controllers, and models 
+can be done manually by using
+php artisan event:scan, 
+php artisan route:scan, 
+or php artisan model:scan respectively. 
+In the local environment, you can scan them automatically by setting protected $scanWhenLocal = true
+```
+4 . `运行 artisan route:scan, 会产生一个路由缓存文件 storage/framework/routes.scanned.php`
