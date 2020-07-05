@@ -280,7 +280,7 @@ public function toSearchableArray()
 ## 安装laravels
 1 . 参考[github](https://github.com/hhxsv5/laravel-s)
 
-## 安装laravelcollective/annotations注解
+## laravelcollective/annotations注解
 1 . `composer require plaravelcollective/annotations`
 
 2 . 参考[github](https://github.com/LaravelCollective/annotations)
@@ -295,3 +295,68 @@ or php artisan model:scan respectively.
 In the local environment, you can scan them automatically by setting protected $scanWhenLocal = true
 ```
 4 . `运行 artisan route:scan, 会产生一个路由缓存文件 storage/framework/routes.scanned.php`
+
+## 表单验证
+1 . Controller
+```
+public function index(TestRequest $request)
+{
+    $params = $request->validated();
+
+    return response()->json($params);
+}
+```
+
+2 . Handler
+```
+public function render($request, Throwable $exception)
+{
+    if ($exception instanceof ValidationException) {
+        return response()->json(['msg' => $exception->{"validator"}->errors()->first(), 'data' => []], 422);
+    }
+
+    return parent::render($request, $exception);
+}
+```
+
+3 . Request
+```
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class TestRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'id' => 'required|integer'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'id.required' => 'id不能为空',
+            'id.integer' => 'id只能为整数'
+        ];
+    }
+}
+```
