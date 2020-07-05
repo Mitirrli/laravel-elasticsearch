@@ -44,10 +44,12 @@ return [
         'max_wait_time' => 5,
     ],
     'swoole_tables'            => [],
-    'register_providers'       => [],
+    'register_providers'       => [
+        \Dcat\Admin\AdminServiceProvider::class
+    ],
     'cleaners'                 => [
-//        \Hhxsv5\LaravelS\Illuminate\Cleaners\LaravelAdminCleaner::class
-        // See LaravelS's built-in cleaners: https://github.com/hhxsv5/laravel-s/blob/master/Settings.md#cleaners
+        \Hhxsv5\LaravelS\Illuminate\Cleaners\AuthCleaner::class,
+        \App\Cleaners\DcatCleaners::class,
     ],
     'destroy_controllers'      => [
         'enable'        => false,
