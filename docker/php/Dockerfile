@@ -67,5 +67,3 @@ RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/com
 
 # 设置工作目录
 WORKDIR /opt/www
-
-ENTRYPOINT ["php", "bin/laravels", "start"]
