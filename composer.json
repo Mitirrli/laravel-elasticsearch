@@ -17,6 +17,7 @@
         "laravel/framework": "^7.0",
         "laravel/scout": "^7.0",
         "laravel/tinker": "^2.0",
+        "laravelcollective/annotations": "^7.0",
         "tamayo/laravel-scout-elastic": "^5.0"
     },
     "require-dev": {
