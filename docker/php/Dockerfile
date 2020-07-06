@@ -50,4 +50,4 @@ RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/com
     && docker-php-ext-enable redis
 
 # 设置工作目录
-WORKDIR /opt/www
+WORKDIR /opt/www/public
