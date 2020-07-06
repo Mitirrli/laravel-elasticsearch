@@ -6,12 +6,11 @@
 FROM php:7.4.7-cli-alpine
 
 # phpredis及swoole版本
-ENV PHPREDIS_VERSION=5.2.2 \
-    SWOOLE_VERSION=4.5.2
+ENV PHPREDIS_VERSION=5.2.2
 
 # 使用国内镜像
-RUN echo http://mirrors.aliyun.com/alpine/v3.12/main>/etc/apk/repositories \
-    && echo  http://mirrors.aliyun.com/alpine/v3.12/community>>/etc/apk/repositories
+RUN echo http://mirrors.aliyun.com/alpine/v3.12/main > /etc/apk/repositories \
+    && echo  http://mirrors.aliyun.com/alpine/v3.12/community >> /etc/apk/repositories
 
 # 安装必须的包
 RUN apk add --no-cache oniguruma-dev \
@@ -37,7 +36,7 @@ RUN apk add --no-cache oniguruma-dev \
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 
 # 安装一些必备的扩展
-RUN docker-php-ext-install gd bcmath pdo_mysql pcntl mysqli mbstring sockets sysvmsg
+RUN docker-php-ext-install gd bcmath pdo_mysql mysqli mbstring sockets sysvmsg
 
 # 安装composer
 RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/composer \
@@ -48,22 +47,7 @@ RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/com
     && wget http://pecl.php.net/get/redis-${PHPREDIS_VERSION}.tgz -O /tmp/redis.tar.tgz \
     && pecl install /tmp/redis.tar.tgz \
     && rm -rf /tmp/redis.tar.tgz \
-    && docker-php-ext-enable redis \
-# 安装swoole扩展
-    && wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz -O swoole.tar.gz \
-    && mkdir -p swoole \
-    && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
-    && rm swoole.tar.gz \
-    && ( \
-        cd swoole \
-        && phpize \
-        && ./configure --enable-mysqlnd --enable-sockets --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r swoole \
-    && docker-php-ext-enable swoole \
-    && echo "swoole.use_shortname = 'Off'" >> /usr/local/etc/php/conf.d/swoole.ini
+    && docker-php-ext-enable redis
 
 # 设置工作目录
 WORKDIR /opt/www
