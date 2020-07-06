@@ -36,7 +36,7 @@ RUN apk add --no-cache oniguruma-dev \
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 
 # 安装一些必备的扩展
-RUN docker-php-ext-install gd bcmath pdo_mysql mysqli mbstring sockets sysvmsg
+RUN docker-php-ext-install gd bcmath pdo_mysql mysqli mbstring sockets
 
 # 安装composer
 RUN wget https://mirrors.aliyun.com/composer/composer.phar -O /usr/local/bin/composer \
