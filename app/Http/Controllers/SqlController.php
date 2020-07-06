@@ -14,11 +14,8 @@ class SqlController extends Controller
      */
     public function simple()
     {
-        DB::connection()->enableQueryLog();
-
         News::query()->find(1);
-
-        return response()->json(['log' => DB::getQueryLog()]);
+        News::query()->find(2);
     }
 
     /**
