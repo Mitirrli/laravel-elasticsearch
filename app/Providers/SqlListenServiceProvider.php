@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class SqlListenServiceProvider extends ServiceProvider
@@ -28,7 +29,7 @@ class SqlListenServiceProvider extends ServiceProvider
             DB::listen(function ($query) {
                 $sql = vsprintf(str_replace('?', '%s', $query->sql), $query->bindings);
 
-                //写入日志
+                Log::debug($sql);
             });
         }
     }
