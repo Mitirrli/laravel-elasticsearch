@@ -1,6 +1,5 @@
 version: '3.7'
 # 以下配置仅为测试使用,勿至生产环境使用
-
 services:
   mi-nginx:
     image: nginx:alpine
