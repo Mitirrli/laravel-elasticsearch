@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Controllers\DemoController;
+use App\Http\Controllers\SqlController;
 use Collective\Annotations\AnnotationsServiceProvider as ServiceProvider;
 
 class AnnotationsServiceProvider extends ServiceProvider {
@@ -20,7 +21,8 @@ class AnnotationsServiceProvider extends ServiceProvider {
      * @var array
      */
     protected $scanRoutes = [
-        DemoController::class
+        DemoController::class,
+        SqlController::class
     ];
 
     /**
