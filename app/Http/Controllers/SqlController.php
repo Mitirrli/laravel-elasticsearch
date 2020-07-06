@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class SqlController extends Controller
 {
     /**
-     * @Get("/sql")
+     * @Get("/simple")
      * @return \Illuminate\Http\JsonResponse
      */
     public function simple()
@@ -19,5 +19,13 @@ class SqlController extends Controller
         News::query()->find(1);
 
         return response()->json(['log' => DB::getQueryLog()]);
+    }
+
+    /**
+     * @Get("/complex")
+     */
+    public function complex()
+    {
+
     }
 }
