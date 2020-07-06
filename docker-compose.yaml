@@ -1,19 +1,6 @@
 version: '3.7'
 # 以下配置仅为测试使用,勿至生产环境使用
 services:
-  mi-nginx:
-    image: nginx:alpine
-    restart: always
-    environment:
-      TZ: 'Asia/Shanghai'
-    networks:
-      - mi-network
-    ports:
-      - "8081:80"
-    volumes:
-      - "./:/opt/www"
-      - "./docker/nginx/laravel-es.conf:/etc/nginx/conf.d/laravel-es.conf"
-      - "./docker/nginx/nginx.conf:/etc/nginx/nginx.conf"
   mi-php:
     container_name: mi-php
     build:
@@ -45,19 +32,6 @@ services:
       - "9369:9300"
     volumes:
       - "./docker/elasticsearch/plugins/ik:/usr/share/elasticsearch/plugins/ik"
-  mi-kibana:
-    image: "kibana:7.8.0"
-    ports:
-      - "5661:5601"
-    networks:
-      - mi-network
-    volumes:
-      - type: bind
-        source: ./docker/kibana/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
-    depends_on:
-      - mi-es
 volumes:
   mi-elasticsearch:
 
