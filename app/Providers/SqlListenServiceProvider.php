@@ -27,7 +27,7 @@ class SqlListenServiceProvider extends ServiceProvider
     {
         if (env('APP_ENV') === 'local') {
             DB::listen(function ($query) {
-                $sql = vsprintf(str_replace('?', '%s', $query->sql), $query->bindings);
+                $sql = vsprintf(str_replace('?', '%s', $query->sql) . ', time: '.$query->time, $query->bindings);
 
                 Log::debug($sql);
             });
