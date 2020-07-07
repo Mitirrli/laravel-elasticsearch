@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
-
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
 class User extends Model
 {
-	use HasDateTimeFormatter;
+    use HasDateTimeFormatter;
 
     use Searchable;
 
@@ -24,11 +23,16 @@ class User extends Model
     public function toSearchableArray()
     {
         return [
-            'users_id' => $this->id,
+            'uid' => $this->uid,
             'users_name' => $this->name,
             'users_introduction' => $this->introduction,
-            'users_created_at' => $this->created_at,
-            'users_updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Products::class,'uid','uid');
     }
 }
