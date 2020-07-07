@@ -26,8 +26,8 @@ class News extends Model
             'news_id' => $this->id,
             'news_title' => $this->title,
             'news_text' => $this->text,
-            'news_created_at' => $this->created_at,
-            'news_updated_at' => $this->updated_at,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ];
     }
 }
